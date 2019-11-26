@@ -16,10 +16,6 @@
 
 #include "Arduino.h"
 
-#ifndef NUMBER_SIMPLE_THREADS
-#define NUMBER_SIMPLE_THREADS 10
-#endif
-
 #define AS_SOON_AS_POSSIBLE 0
 #define DO_NOTHING_FUNCTION NULL
 #define WITHOUT_SETUP_FUNCTION NULL
@@ -30,7 +26,11 @@
 #define HIGH_PRIORITY		100
 #define VERY_HIGH_PRIORITY	200
 
-void declareSimpleThread(void (*)(void),
+#define SIMPLE_THREAD_ERROR -1
+
+int usingSimpleThreads(unsigned int);
+
+int declareSimpleThread(void (*)(void),
                 		 void (*)(void),
 						 unsigned long,
 						 int);

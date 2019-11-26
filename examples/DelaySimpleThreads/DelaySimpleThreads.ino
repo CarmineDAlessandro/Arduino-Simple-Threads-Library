@@ -16,7 +16,6 @@
 
 
 #include "ArduinoSimpleThreads.h"
-#define NUMBER_SIMPLE_THREADS 3
 
 void fastMessage_loop(){
   /*Run repeatedly*/
@@ -38,24 +37,46 @@ void setup() {
   
   Serial.begin(9600);
 
-  declareSimpleThread(fastMessage_loop,
+  /*Use 3 threads*/
+  if(usingSimpleThreads(3) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread definition");
+    exit(1);
+  }
+
+  if(declareSimpleThread(fastMessage_loop,
                       WITHOUT_SETUP_FUNCTION,
                       1000L,  // 1 second
-                      STANDARD_PRIORITY);
-  declareSimpleThread(slowMessage_loop,
+                      STANDARD_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+  
+  if(declareSimpleThread(slowMessage_loop,
                       WITHOUT_SETUP_FUNCTION,
                       5000L,  // 5 seconds
-                      STANDARD_PRIORITY);
-  declareSimpleThread(verySlowMessage_loop,
+                      STANDARD_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+  
+  if(declareSimpleThread(verySlowMessage_loop,
                       WITHOUT_SETUP_FUNCTION,
                       10000L, // 10 seconds
-                      STANDARD_PRIORITY);
+                      STANDARD_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
                       
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
+  /*Execute the loop of the thread*/
   runSimpleThreads();
 
   /*

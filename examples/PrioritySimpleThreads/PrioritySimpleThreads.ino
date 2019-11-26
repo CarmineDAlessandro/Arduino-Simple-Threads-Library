@@ -47,28 +47,59 @@ void setup() {
   
   Serial.begin(9600);
 
+  /*Use 5 thread*/
+  if(usingSimpleThreads(5) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread definition");
+    exit(1);
+  }
+
   /*Declare in random order*/
   /*The highest priority, the first they are executed*/
-  declareSimpleThread(fourthWord_loop,
+  if(declareSimpleThread(fourthWord_loop,
                       WITHOUT_SETUP_FUNCTION,
                       AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY-3);
-  declareSimpleThread(firstWord_loop,
+                      STANDARD_PRIORITY-3) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+  
+  if(declareSimpleThread(firstWord_loop,
                       WITHOUT_SETUP_FUNCTION,
                       AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY);
-  declareSimpleThread(thirdWord_loop,
+                      STANDARD_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+  
+  if(declareSimpleThread(thirdWord_loop,
                       WITHOUT_SETUP_FUNCTION,
                       AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY-2);
-  declareSimpleThread(newLine_loop,
+                      STANDARD_PRIORITY-2) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+  
+  if(declareSimpleThread(newLine_loop,
                       WITHOUT_SETUP_FUNCTION,
                       AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY-4);
-  declareSimpleThread(secondWord_loop,
+                      STANDARD_PRIORITY-4) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+  
+  if(declareSimpleThread(secondWord_loop,
                       WITHOUT_SETUP_FUNCTION,
                       AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY-1);
+                      STANDARD_PRIORITY-1) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
                       
 }
 

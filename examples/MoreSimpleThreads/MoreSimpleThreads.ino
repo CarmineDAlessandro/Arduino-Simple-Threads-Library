@@ -19,7 +19,6 @@
 
 
 #include "ArduinoSimpleThreads.h"
-#define NUMBER_SIMPLE_THREADS 2
 
 int magic_number;
 
@@ -56,23 +55,39 @@ void setup() {
   
   Serial.begin(9600);
 
+  /*Use 2 threads*/
+  if(usingSimpleThreads(2) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread definition");
+    exit(1);
+  }
+
   /*PRINT THREAD*/
-  declareSimpleThread(printMagicNumber_loop,
+  if(declareSimpleThread(printMagicNumber_loop,
                       WITHOUT_SETUP_FUNCTION,
                       AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY);
+                      STANDARD_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
 
    /*COUNTER THREAD*/
-   declareSimpleThread(increaseCounter_loop,
+   if(declareSimpleThread(increaseCounter_loop,
                       setupCounter_setup,
                       AS_SOON_AS_POSSIBLE,
-                      HIGH_PRIORITY);
+                      HIGH_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
                       
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
+  /*Execute the loop of the thread*/
   runSimpleThreads();
 
   delay(2000);

@@ -12,36 +12,46 @@
 
 
 #include "ArduinoSimpleThreads.h"
-#define NUMBER_SIMPLE_THREADS 1
+
+void helloFromThread_setup(){
+  /*Run once, when declaring the thread*/
+  Serial.println("Hello from Thread Setup");
+}
 
 void helloFromThread_loop(){
   /*Run repeatedly*/
-  Serial.println("Hello from Thread");
+  Serial.println("Hello from Thread Loop");
 }
 
 void setup() {
   // put your setup code here, to run once:
   
   Serial.begin(9600);
-  declareSimpleThread(helloFromThread_loop,
-                      WITHOUT_SETUP_FUNCTION,
-                      AS_SOON_AS_POSSIBLE,
-                      STANDARD_PRIORITY);
+
+  /*Use one thread*/
+  if(usingSimpleThreads(1) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread definition");
+    exit(1);
+  }
+
+  /*Declare the therad*/
+  if(declareSimpleThread(helloFromThread_loop,
+                          helloFromThread_setup,
+                          AS_SOON_AS_POSSIBLE,
+                          STANDARD_PRIORITY) == SIMPLE_THREAD_ERROR)
+  {
+    Serial.println("Error during thread declaration");
+    exit(1);
+  }
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  /* 
-   * The threads run always before the main
-   * because this function is called a the
-   * beginning of the loop(). However, the
-   * first time the thread will not run
-   * because it is not ready yet.
-   */
+  /*Execute the loop of the thread*/
   runSimpleThreads();
-  Serial.println("Hello, always after the threads");
-  Serial.println();
 
-  delay(3000);
+  delay(2000);
 }
