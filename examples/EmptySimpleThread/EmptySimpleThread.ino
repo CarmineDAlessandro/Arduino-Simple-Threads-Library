@@ -18,7 +18,7 @@
 #include "ArduinoSimpleThreads.h"
 
 void noLoopThread_setup(){
-  /*Run repeatedly*/
+  /*Run once, when declaring the thread*/
   Serial.println("Even if I have no loop, I am executed anyway");
 }
 
