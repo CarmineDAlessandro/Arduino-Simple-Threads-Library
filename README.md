@@ -76,7 +76,7 @@ All the code in the loop of the sketch written before the `runSimpleThreads()` f
 #define HIGH_PRIORITY           100
 #define VERY_HIGH_PRIORITY      200
 ```
-### An example
+## An example
 ```
 #include "ArduinoSimpleThreads.h"
 
