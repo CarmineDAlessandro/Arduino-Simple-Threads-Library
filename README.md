@@ -13,10 +13,10 @@ if (currentMillis - previousMillis >= interval) {
 ```
 
 ### It is not a thread...
-In this library I use the words "threading" or "pseudo-threading" referring to this concept, even if it has to be clear it is not actual threading but, more likely, "function scheduling". The library has only 3 functions: one to define the number of pseudo-threads, one to declare the pseudo-threads and one to execute them.
+In this library I use the words "threading" or "pseudo-threading" referring to this concept, even if it has to be clear it is not actual threading but, more likely, "function scheduling". The library has only 3 functions: the first to define the number of pseudo-threads, the second to declare the pseudo-threads and the third to execute them.
 
 ### ...So, why should I use it?
-Each pseudo-thread has its own setup, loop, delay and priority which allows the programmer to easily copy and paste external code in the sketch and run it fastly without messing the code too much while wasting time in configuration.
+Each pseudo-thread has its own setup, loop, delay and priority which allows the programmer to easily copy and paste external code in the sketch and build it fastly without messing up the code while spending time in configuration.
 
 ## How it works
 ### Install
